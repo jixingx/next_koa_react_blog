@@ -4,11 +4,13 @@ import {
     Route
 } from 'react-router-dom'
 import Login from './Login'
+import AdminIndex from './AdminIndex'
 
 function Main(){
     return (
         <Router>      
             <Route path="/login/" exact component={Login} />
+            <Route path="/adminindex/" exact component={AdminIndex} />
         </Router>
     )
 }
