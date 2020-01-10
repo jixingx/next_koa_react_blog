@@ -26,6 +26,7 @@
 ### 所选框架和技术
 1. React Hooks
 2. antd
+3. marked
 
 ## 数据库
 使用mysql数据库

@@ -22,6 +22,7 @@ function Login(){
                         id="userName"
                         size="large"
                         placeholder="请输入用户名"
+                        value={userName}
                         prefix={<Icon type="user" style={{color:'rgba(0,0,0,.25)'}} />}
                         onChange={(e)=>{setUserName(e.target.value)}}
                     /> 
@@ -30,6 +31,7 @@ function Login(){
                         id="password"
                         size="large"
                         placeholder="请输入密码"
+                        value={password}
                         prefix={<Icon type="key" style={{color:'rgba(0,0,0,.25)'}} />}
                         onChange={(e)=>{setPassword(e.target.value)}}
                     />
