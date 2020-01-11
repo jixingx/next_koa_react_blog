@@ -15,6 +15,12 @@ const static=require('koa-static')
 const staticPath='./static'
 app.use(static(path.join(__dirname,staticPath)));
 
+//koa-jwt 主要提供路有权限控制的功能，它会对需要限制的资源请求进行检查
+const jwtKoa = require('koa-jwt')
+app.use(jwtKoa({secret:"secret"}).unless({//第一个参数密匙，第二个参数那些URL不需要验证
+    path: [/^\/admin\/checkLogin/] //数组中的路径不需要通过jwt验证
+}))
+
 //引入koa-router，处理路由
 const Router=require('koa-router');
 const router=new Router()
@@ -23,9 +29,10 @@ const router=new Router()
 
 //引入自定义路由配置
 const defaul=require('./router/default');
-
+const admin=require('./router/admin')
 //配置路由
 router.use('/default',defaul.routes());
+router.use('/admin',admin.routes());
 
 app.use(router.routes())//挂载router方法
 

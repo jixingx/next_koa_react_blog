@@ -56,7 +56,7 @@ function AdminIndex() {
             </Breadcrumb>
             <div style={{ padding: 24, background: '#fff', minHeight: 360 }}>
                 <div>
-                    <Route path="/adminindex/index/" exact component={AddArticle} />
+                    <Route path="/index/" exact component={AddArticle} />
                 </div>
             </div>
             </Content>
