@@ -9,6 +9,7 @@ const jwt=require('jsonwebtoken')
 router.post('/checkLogin',async (ctx)=>{
     try {
         let {userName,password}=ctx.request.body
+        //console.log(userName,password)
         let sql=`SELECT userName,id FROM admin_user WHERE userName='${userName}' AND password='${password}'`;
         let qureyDate=await Dd(sql)
         //console.log(qureyDate[0].userName)

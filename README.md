@@ -27,6 +27,8 @@
 (1) /admin/checkLogin
 
 接受参数:
+
+
 |  参数  | 描述 |
 |  ---  | ---  |
 | userName  | 用户名 |
@@ -43,6 +45,7 @@
 1. React Hooks
 2. antd
 3. marked
+4. axios
 
 ## 数据库
 使用mysql数据库

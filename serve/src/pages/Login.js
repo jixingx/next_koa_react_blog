@@ -1,15 +1,50 @@
 import React,{useState} from 'react';
 import 'antd/dist/antd.css';
-import {Card,Input,Icon,Button,Spin} from 'antd';
+import {Card,Input,Icon,Button,Spin,message} from 'antd';
+
+import axios from '../config/apiurl'
 
 import '../static/css/Login.css';
 
-function Login(){
+function Login(props){
     const [userName,setUserName]=useState('')
     const [password,setPassword]=useState('')
     const [isLoading,setIsLoading]=useState(false)
     const checkLogin = ()=>{
         setIsLoading(true)
+        if(!userName){
+            message.error('用户名不能为空')
+            setTimeout(()=>{
+                setIsLoading(false)
+            },500)
+            return false
+        }else if(!password){
+            message.error('密码不能为空')
+            setTimeout(()=>{
+                setIsLoading(false)
+            },500)
+            return false
+        }
+        // let dataProps = {
+        //     'userName':userName,
+        //     'password':password
+        // }
+
+        axios.post('/checkLogin',{
+            'userName':userName,
+            'password':password
+        }).then((res)=>{
+            setIsLoading(false)
+            if(res.data.code===200){
+                localStorage.setItem('Token',res.data.data)
+                props.history.push("/index/")
+            }else{
+                message.error('用户名密码错误')
+            }
+        }).catch(function (error) {
+            console.log(error);
+        });
+
         setTimeout(()=>{
             setIsLoading(false)
         },1000)
@@ -17,7 +52,7 @@ function Login(){
     return(
         <div className="login-div">
             <Spin tip="Loading..." spinning={isLoading}>
-                <Card title="博客后台管理登录" bordered={true} style={{ width: 400 ,transform: 'translateX(-50%)'}} >
+                <Card title="博客后台管理登录" bordered={true} style={{ width: 400 }} >
                     <Input
                         id="userName"
                         size="large"
