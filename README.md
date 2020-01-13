@@ -35,7 +35,15 @@
 | password  | 密码 |
 
 返回值:
-> token <br>
+> token
+
+(2) /admin/getTypeInfo
+
+接受参数:无
+
+返回值：
+
+`{code:200,data:类别所有内容} OR  {code:400,data:暂无数据}`
 
 
 

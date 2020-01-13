@@ -6,6 +6,7 @@ const Dd=require('../model/Db')
 //引入jsonwebtoken模块
 const jwt=require('jsonwebtoken')
 
+//登录接口
 router.post('/checkLogin',async (ctx)=>{
     try {
         let {userName,password}=ctx.request.body
@@ -48,4 +49,30 @@ router.post('/checkLogin',async (ctx)=>{
     
 })
 
+//获取文章类别的接口
+router.get('/getTypeInfo',async (ctx)=>{
+    try {
+        let sql=`SELECT * FROM type`;
+        let qureyDate=await Dd(sql)
+        if(qureyDate.length>0){
+            ctx.body={
+                code:200,
+                data:qureyDate
+            }
+        }else{
+            ctx.body={
+                code:200,
+                data:'暂无数据'
+            }
+        }
+    } catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+})
+
 module.exports=router
+
+
