@@ -45,6 +45,23 @@
 
 `{code:200,data:类别所有内容} OR  {code:400,data:暂无数据}`
 
+(3) /admin/addArticle
+
+接受参数:
+
+
+|  参数  | 描述 |
+|  ---  | ---  |
+| type_id  | 文章类型编号 |
+| title  | 文章标题 |
+| article_content  | 文章主题内容 |
+| introduce  | 文章简介 |
+| addTime  | 文章发布时间 |
+| view_count  | 浏览次数 |
+
+返回值:
+
+`{code:200,isScuccess:true,insertId:增加返回的id} AND {code:400,isScuccess:false,insertId:增加返回的id}`
 
 
 ## 后端

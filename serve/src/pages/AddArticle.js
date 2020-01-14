@@ -81,7 +81,26 @@ function AddArticle(){
             message.error('发布日期不能为空')
             return false
         }
-        message.success('检验通过')
+        let dataProps={} //传递到接口的参数
+        dataProps.type_id=selectedType
+        dataProps.title=articleTitle
+        dataProps.article_content=articleContent
+        dataProps.introduce=introducemd
+        let datetext=showDate.replace('-','/')//把字符串转换成时间戳
+        dataProps.addTime=(new Date(datetext).getTime())/1000
+
+        if(articleId==0){
+            console.log('articleId=:'+articleId)
+            dataProps.view_count =0
+            axios.post('/addArticle',dataProps).then((res)=>{
+                setArticleId(res.data.insertId)
+                if(res.data.code===200){
+                    message.success('文章保存成功')
+                }else{
+                    message.error('文章保存失败');
+                }
+            })
+        }
     }
     return(
         <div>
@@ -135,8 +154,8 @@ function AddArticle(){
                 <Col span={6}>
                     <Row>
                         <Col span={24}>
-                            <Button size="large">暂存文章</Button>&nbsp;
-                            <Button type="primary" size="large" onClick={saveArticle}>发布文章</Button>
+                            {/* <Button size="large">暂存文章</Button>&nbsp; */}
+                            <Button type="primary" size="large"  onClick={saveArticle}>发布文章</Button>
                             <br/>
                         </Col>
                         <Col span={24}>

@@ -73,6 +73,39 @@ router.get('/getTypeInfo',async (ctx)=>{
     }
 })
 
+//获取文章接口
+router.post('/addArticle',async (ctx)=>{
+    try {
+        let {type_id,title,article_content,introduce,addTime,view_count}=ctx.request.body
+        let sql=`
+            INSERT INTO article 
+            (Id,type_id,title,article_content,introduce,addTime,view_count) 
+            VALUES(null,${type_id},'${title}','${article_content}','${introduce}','${addTime}',${view_count})
+            `
+        let addData=await Dd(sql);
+        if(addData.affectedRows){
+            ctx.body={
+                code:200,
+                isScuccess:true,
+                insertId:addData.insertId
+            }
+        }else{
+            ctx.body={
+                code:400,
+                isScuccess:false,
+                insertId:addData.insertId
+            }
+        }
+        //console.log(addData)
+    } catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+})
+
+//修改文章接口
 module.exports=router
 
 
