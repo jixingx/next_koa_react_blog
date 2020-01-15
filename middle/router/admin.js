@@ -105,7 +105,35 @@ router.post('/addArticle',async (ctx)=>{
     }
 })
 
-//修改文章接口
+//文章列表接口
+router.get('/getArticleList',async (ctx)=>{
+    try {
+        let sql = 'SELECT article.id as id,'+
+                'article.title as title,'+
+                'article.introduce as introduce,'+
+                "FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,"+
+                'type.typeName as typeName '+
+                'FROM article LEFT JOIN type ON article.type_id = type.Id '+
+                'ORDER BY article.id DESC '
+        let qureyDate=await Dd(sql)
+        if(qureyDate.length>0){
+            ctx.body={
+                code:200,
+                data:qureyDate
+            }
+        }else{
+            ctx.body={
+                code:200,
+                data:'暂无数据'
+            }
+        }
+    }catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+})
 module.exports=router
 
 

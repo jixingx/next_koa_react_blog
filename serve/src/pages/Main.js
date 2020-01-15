@@ -3,7 +3,7 @@ import {
     BrowserRouter as Router,
     Route,
     Redirect,
-    Switch
+    Switch,
 } from 'react-router-dom'
 import Login from './Login'
 import AdminIndex from './AdminIndex'
@@ -23,7 +23,7 @@ function Main(){
         <Router>
             <Switch>
                 <Route path="/" exact component={Login} />
-                <Route path="/index/" exact render={()=>(
+                <Route path="/index/"  render={()=>(
                     isLogin?(<AdminIndex />):(<Redirect to="/"/>)
                 )}  />
             </Switch>

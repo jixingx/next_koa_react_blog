@@ -24,7 +24,7 @@
 1. 前端接口
 2. 后端接口: 
 
-(1) /admin/checkLogin
+(1) /admin/checkLogin 登录接口
 
 接受参数:
 
@@ -37,7 +37,7 @@
 返回值:
 > token
 
-(2) /admin/getTypeInfo
+(2) /admin/getTypeInfo 获取类别接口
 
 接受参数:无
 
@@ -45,7 +45,7 @@
 
 `{code:200,data:类别所有内容} OR  {code:400,data:暂无数据}`
 
-(3) /admin/addArticle
+(3) /admin/addArticle 添加文章接口
 
 接受参数:
 
@@ -63,6 +63,12 @@
 
 `{code:200,isScuccess:true,insertId:增加返回的id} AND {code:400,isScuccess:false,insertId:增加返回的id}`
 
+(4) /admin/getArticleList 文章类表接口
+
+接收参数:无
+
+返回值:
+`{code:200,data:所有文章} OR  {code:400,data:暂无数据}`
 
 ## 后端
 
