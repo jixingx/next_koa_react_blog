@@ -2,9 +2,11 @@
 ## 前端
 
 ### 所选框架和技术
+1. next.js(基于react服务端渲染)
+2. React hooks
+3. antd
 
 
-### 项目前端启动
 
 
 ## 中台
@@ -23,6 +25,8 @@
 ### 接口
 1. 前端接口
 2. 后端接口: 
+
+后端除了/admin/checkLogin接口其余都要token验证
 
 (1) /admin/checkLogin 登录接口
 
