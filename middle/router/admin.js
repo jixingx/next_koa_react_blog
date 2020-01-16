@@ -123,7 +123,7 @@ router.get('/getArticleList',async (ctx)=>{
             }
         }else{
             ctx.body={
-                code:200,
+                code:400,
                 data:'暂无数据'
             }
         }
@@ -134,6 +134,105 @@ router.get('/getArticleList',async (ctx)=>{
         }
     }
 })
+
+//删除文章列表接口
+router.get('/delArticle/:id',async (ctx)=>{
+    try {
+        let id = ctx.params.id
+        let sql=`DELETE FROM article WHERE id=${id}`;
+        let delDate=await Dd(sql)
+        //console.log(delDate)
+        if(delDate.affectedRows>0){
+            ctx.body={
+                code:200,
+                data:'文章删除成功'
+            }
+        }else{
+            ctx.body={
+                code:400,
+                data:'文章删除失败'
+            }
+        }
+    } catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+})
+
+//获得单个文章接口
+router.get('/getArticleById/:id',async (ctx)=>{
+    try {
+        let id = ctx.params.id
+
+        let sql = 'SELECT article.id as id,'+
+        'article.title as title,'+
+        'article.introduce as introduce,'+
+        'article.article_content as article_content,'+
+        "FROM_UNIXTIME(article.addTime,'%Y-%m-%d' ) as addTime,"+
+        'article.view_count as view_count ,'+
+        'type.typeName as typeName ,'+
+        'type.id as typeId '+
+        'FROM article LEFT JOIN type ON article.type_id = type.Id '+
+        'WHERE article.id='+id
+        let Bydata=await Dd(sql)
+        if(Bydata.length>0){
+            ctx.body={
+                code:200,
+                data:Bydata
+            }
+        }else{
+            ctx.body={
+                code:400,
+                data:'文章获取失败'
+            }
+        }
+    } catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+})
+
+//修改文章
+router.post('/updateArticle',async (ctx)=>{
+    try {
+        let {Id,type_id,title,article_content,introduce,addTime}=ctx.request.body
+        
+        let sql=`
+            UPDATE article SET  
+            type_id=${type_id},
+            title='${title}',
+            article_content='${article_content}',
+            introduce='${introduce}',
+            addTime='${addTime}'
+            WHERE Id=${Id}
+            `
+        let updateData=await Dd(sql);
+        if(updateData.affectedRows>0){
+            ctx.body={
+                code:200,
+                isScuccess:true,
+                insertId:updateData.insertId
+            }
+        }else{
+            ctx.body={
+                code:400,
+                isScuccess:false,
+                insertId:updateData.insertId
+            }
+        }
+        //console.log(addData)
+    } catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+})
+
 module.exports=router
 
 

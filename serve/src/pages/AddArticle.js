@@ -7,7 +7,7 @@ import axios from '../config/apiurl'
 const { Option }=Select;
 const { TextArea }=Input;
 
-function AddArticle(){
+function AddArticle(props){
     const [articleId,setArticleId] = useState(0)  // 文章的ID，如果是0说明是新增加，如果不是0，说明是修改
     const [articleTitle,setArticleTitle] = useState('')   //文章标题
     const [articleContent , setArticleContent] = useState('')  //markdown的编辑内容
@@ -23,7 +23,14 @@ function AddArticle(){
 
     //从中台得到文章类别信息
     useEffect(()=>{
+        
         getTypeInfo()
+        ////获得文章ID
+        let tmpId = props.match.params.id
+        if(tmpId){
+            setArticleId(tmpId)
+            getArticleById(tmpId)
+        } 
     },[])
     const getTypeInfo=()=>{
         axios.get('/getTypeInfo').then((res)=>{
@@ -64,6 +71,7 @@ function AddArticle(){
         console.log(value)
         setSelectType(value)
     }
+    //发布文章
     const saveArticle = ()=>{
         if(!selectedType||selectedType==="请选择类型"){
             message.error('必须选择文章类别')
@@ -100,7 +108,32 @@ function AddArticle(){
                     message.error('文章保存失败');
                 }
             })
+        }else{
+            dataProps.Id = articleId
+            axios.post('/updateArticle',dataProps).then(res=>{
+                if(res.data.isScuccess){
+                    message.success('文章保存成功')
+                }else{
+                    message.error('保存失败');
+                }
+            })
         }
+    }
+    //获取单个文章
+    const getArticleById=(id)=>{
+        axios.get('/getArticleById/'+id).then((res)=>{
+            
+            setArticleTitle(res.data.data[0].title)
+            setArticleContent(res.data.data[0].article_content)
+            let html=marked(res.data.data[0].article_content)
+            setMarkdownContent(html)
+            setIntroducemd(res.data.data[0].introduce)
+            let tmpInt = marked(res.data.data[0].introduce)
+            setIntroducehtml(tmpInt)
+            setShowDate(res.data.data[0].addTime)
+            setSelectType(res.data.data[0].typeId)
+            
+        })
     }
     return(
         <div>
@@ -118,7 +151,7 @@ function AddArticle(){
                             </Col>
                             <Col span={4}>
                                 &nbsp;
-                                <Select defaultValue={selectedType} size="large" onChange={selectTypeHandler}>
+                                <Select value={selectedType} size="large" onChange={selectTypeHandler}>
                                     {
                                         typeInfo.map((item,index)=>{
                                             return (<Option key={index} value={item.Id}>{item.typeName}</Option>)
@@ -132,7 +165,8 @@ function AddArticle(){
                             <Col span={12}>
                                 <TextArea 
                                     className="markdown-content" 
-                                    rows={35}  
+                                    rows={35}
+                                    value={articleContent}
                                     placeholder="文章内容"
                                     onChange={changeContent}
                                     onPressEnter={changeContent}

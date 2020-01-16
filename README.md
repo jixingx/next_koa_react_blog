@@ -70,6 +70,48 @@
 返回值:
 `{code:200,data:所有文章} OR  {code:400,data:暂无数据}`
 
+(5) /admin/delArticle/:id 文章删除接口
+
+接收参数：
+
+
+|  参数  | 描述 |
+|  ---  | ---  |
+| Id  | 文章主键id |
+
+返回值:
+`{code:200,msg:'文章删除成功'} OR  {code:400,msg:'文章删除失败'}`
+
+(6) /admin/getArticleById/:id 获取单条文章接口
+
+接收参数：
+
+
+|  参数  | 描述 |
+|  ---  | ---  |
+| Id  | 文章主键id |
+
+返回值:
+`{code:200,data:'单条文章数据'} OR  {code:400,msg:'文章获取失败'}`
+
+(7) /admin/updateArticle 修改文章接口
+
+接受参数:
+
+
+|  参数  | 描述 |
+|  ---  | ---  |
+| Id  | 文章主键id |
+| type_id  | 文章类型编号 |
+| title  | 文章标题 |
+| article_content  | 文章主题内容 |
+| introduce  | 文章简介 |
+| addTime  | 文章发布时间 |
+
+返回值:
+
+`{code:200,isScuccess:true,insertId:修改返回的id} AND {code:400,isScuccess:false,insertId:修改返回的id}`
+
 ## 后端
 
 ### 所选框架和技术

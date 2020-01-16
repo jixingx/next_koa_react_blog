@@ -23,6 +23,33 @@ function ArticleList(props){
         getList()
     },[])
 
+    //删除文章的方法
+    const delArticle=(id)=>{
+        //console.log(id)
+        confirm({
+            title:'确定要删除这篇博客文章吗？',
+            content:'如果你点击OK按钮，文章将会永远被删除，无法恢复。',
+            onOk(){
+                axios.get('/delArticle/'+id).then(res=>{
+                    if(res.data.code===200){
+                        message.success(res.data.msg)
+                        getList()
+                    }else{
+                        message.success(res.data.msg)
+                    }
+                })
+            },
+            onCancel(){
+                message.success('没有任何改变')
+            }
+        })
+    }
+
+    //修改文章方法
+    const updateArticle=(id)=>{
+        props.history.push('/index/add/'+id)
+    }
+
     return(
         <div>
             <List 
@@ -70,9 +97,9 @@ function ArticleList(props){
                             </Col>
 
                             <Col span={4}>
-                              <Button type="primary" >修改</Button>&nbsp;
+                              <Button type="primary" onClick={()=>{updateArticle(item.id)}}>修改</Button>&nbsp;
 
-                              <Button >删除 </Button>
+                              <Button onClick={()=>{delArticle(item.id)}}>删除 </Button>
                             </Col>
                         </Row>
                     </List.Item>
