@@ -5,6 +5,7 @@
 1. next.js(基于react服务端渲染)
 2. React hooks
 3. antd
+4. react-markdown(解析markdown语法)
 
 
 
