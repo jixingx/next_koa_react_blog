@@ -10,7 +10,7 @@ const { SubMenu } = Menu;
 
 function AdminIndex(props) {
     const handleClickArticle = (e)=>{
-        console.log(props)
+        //console.log(props)
         //console.log(e.item.props)
         if(e.key==='addArticle'){
             props.history.push('/index/add')
@@ -23,7 +23,7 @@ function AdminIndex(props) {
     const [collapsed,setCollapsed]=useState(false)
 
     const onCollapse = collapsed => {
-        console.log(collapsed);
+        //console.log(collapsed);
         setCollapsed( collapsed );
     };
 

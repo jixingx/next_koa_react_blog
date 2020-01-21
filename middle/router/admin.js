@@ -77,6 +77,8 @@ router.get('/getTypeInfo',async (ctx)=>{
 router.post('/addArticle',async (ctx)=>{
     try {
         let {type_id,title,article_content,introduce,addTime,view_count}=ctx.request.body
+        article_content=article_content.replace(/;/g,"々");
+        //console.log(article_content)
         let sql=`
             INSERT INTO article 
             (Id,type_id,title,article_content,introduce,addTime,view_count) 
@@ -200,7 +202,8 @@ router.get('/getArticleById/:id',async (ctx)=>{
 router.post('/updateArticle',async (ctx)=>{
     try {
         let {Id,type_id,title,article_content,introduce,addTime}=ctx.request.body
-        
+        article_content=article_content.replace(/'/g,"々");
+        //console.log(article_content)
         let sql=`
             UPDATE article SET  
             type_id=${type_id},

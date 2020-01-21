@@ -68,7 +68,7 @@ function AddArticle(props){
     }
     //下拉框选择事件
     const selectTypeHandler =(value)=>{
-        console.log(value)
+        //console.log(value)
         setSelectType(value)
     }
     //发布文章
@@ -98,7 +98,7 @@ function AddArticle(props){
         dataProps.addTime=(new Date(datetext).getTime())/1000
 
         if(articleId==0){
-            console.log('articleId=:'+articleId)
+            //console.log('articleId=:'+articleId)
             dataProps.view_count =0
             axios.post('/addArticle',dataProps).then((res)=>{
                 setArticleId(res.data.insertId)

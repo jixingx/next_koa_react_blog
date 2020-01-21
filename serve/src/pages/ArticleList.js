@@ -10,10 +10,10 @@ function ArticleList(props){
 
     const getList=()=>{
         axios.get("/getArticleList").then((res)=>{
-            console.log(res)
+            //console.log(res)
             if(res.data.code===200){
                 setList(res.data.data)
-                console.log(list)
+                //console.log(list)
             }else{
                 setList([])
             }

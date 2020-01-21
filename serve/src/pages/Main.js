@@ -18,7 +18,7 @@ function Main(){
             setIslogin(false)
         }
         console.log(isLogin)
-    },[isLogin])
+    })
     return (
         <Router>
             <Switch>

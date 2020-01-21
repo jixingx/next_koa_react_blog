@@ -7,14 +7,39 @@ import Author from '../components/Author'
 import Footer from '../components/Footer'
 import '../static/style/pages/detailed.css'
 
-import ReactMarkdown from 'react-markdown';
-import MarkNav from 'markdown-navbar';
-import 'markdown-navbar/dist/navbar.css';
+// import ReactMarkdown from 'react-markdown';
+// import MarkNav from 'markdown-navbar';
+// import 'markdown-navbar/dist/navbar.css';
+import marked from 'marked'
+import hljs from "highlight.js";
+import 'highlight.js/styles/monokai-sublime.css';
 
 import axios from '../config/apiUrl'
+import Tocify from '../components/tocify.tsx'
 
 const Detailed = (list) =>{ 
   const [markdown,setMarkdown]=useState(list.article_content)
+  const renderer = new marked.Renderer();
+  const tocify = new Tocify()
+  renderer.heading = function(text, level, raw) {
+    const anchor = tocify.add(text, level);
+    return `<a id="${anchor}" href="#${anchor}" class="anchor-fix"><h${level}>${text}</h${level}></a>\n`;
+  };
+  marked.setOptions({
+      renderer: renderer, 
+      gfm: true,
+      pedantic: false,
+      sanitize: false,
+      tables: true,
+      breaks: false,
+      smartLists: true,
+      smartypants: false,
+      highlight: function (code) {
+              return hljs.highlightAuto(code).value;
+      }
+    }); 
+
+    let html = marked(list.article_content) 
   return(
     <>
       <Head>
@@ -27,25 +52,23 @@ const Detailed = (list) =>{
               <div className="bread-div">
                 <Breadcrumb>
                     <Breadcrumb.Item><a href="/">首页</a></Breadcrumb.Item>
-                    <Breadcrumb.Item>视频列表</Breadcrumb.Item>
+                    <Breadcrumb.Item>学习列表</Breadcrumb.Item>
                 </Breadcrumb>
               </div>
               <div>
                 <div className="detailed-title">
-                  React实战视频教程-技术胖Blog开发(更新08集)
+                  {list.title}
                 </div>
 
                 <div className="list-icon center">
-                  <span><Icon type="calendar" /> 2019-06-28</span>
-                  <span><Icon type="folder" /> 视频教程</span>
-                  <span><Icon type="fire" /> 5498人</span>
+                  <span><Icon type="calendar" /> {list.addTime}</span>
+                  <span><Icon type="folder" /> {list.typeName}</span>
+                  <span><Icon type="fire" /> {list.addTimeview_count}</span>
                 </div>
 
-                <div className="detailed-content" >
-                <ReactMarkdown 
-                  source={markdown} 
-                  escapeHtml={false}  
-                />
+                <div className="detailed-content" 
+                  dangerouslySetInnerHTML = {{__html:html}}
+                >
                 </div>
               </div>
           </div>
@@ -56,11 +79,9 @@ const Detailed = (list) =>{
             <Affix offsetTop={5}>
               <div className="detailed-nav comm-box">
                 <div className="nav-title">文章目录</div>
-                <MarkNav
-                  className="article-menu"
-                  source={markdown}
-                  ordered={false}
-                />
+                <div className="toc-list">
+                  {tocify && tocify.render()}
+                </div>  
               </div>
             </Affix>
         </Col>
@@ -76,7 +97,7 @@ Detailed.getInitialProps=async (context)=>{
 
     axios.get('/getArticleById/'+id).then(
       (res)=>{
-        console.log(res)
+        res.data.data[0].article_content=res.data.data[0].article_content.replace(/々/g,"'");
         resolve(res.data.data[0])
       }
     )

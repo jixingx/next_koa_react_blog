@@ -5,9 +5,10 @@
 1. next.js(基于react服务端渲染)
 2. React hooks
 3. antd
-4. react-markdown(解析markdown语法)
-5. markdown-navbar(生成markdown导航)
+4. ~~react-markdown(解析markdown语法)~~ 换成了markdown和highlight.js
+5. ~~markdown-navbar(生成markdown导航)~~
 6. axios
+7. lodash模块
 
 
 

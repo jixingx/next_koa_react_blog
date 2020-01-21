@@ -5,6 +5,9 @@ import {Row,Col,List,Icon} from 'antd'
 import Header from '../components/Header'
 import Author from '../components/Author'
 import Footer from '../components/Footer'
+import marked from 'marked'
+import hljs from "highlight.js";
+import 'highlight.js/styles/monokai-sublime.css';
 
 import "../static/style/pages/index.css"
 
@@ -13,7 +16,7 @@ import axios from '../config/apiUrl'
 const Home = (list) => {
   const [mylist,setList]=useState(list.data)
   const NavClick=(key)=>{
-    console.log(key)
+    // console.log(key)
     
     axios.get('/getArticleList/'+key).then((res)=>{
       if(res.data.code===200){
@@ -24,6 +27,23 @@ const Home = (list) => {
         
     })
   }
+  const renderer = new marked.Renderer();
+  marked.setOptions({
+    renderer: renderer,
+    gfm: true,
+    pedantic: false,
+    sanitize: false,
+    tables: true,
+    breaks: false,
+    smartLists: true,
+    smartypants: false,
+    sanitize:false,
+    xhtml: false,
+    highlight: function (code) {
+            return hljs.highlightAuto(code).value;
+    }
+
+  }); 
   return(
     <>
       <Head>
