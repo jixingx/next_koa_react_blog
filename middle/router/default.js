@@ -4,17 +4,29 @@ const router=new Router();
 //引入Db函数，连接mysql
 const Dd=require('../model/Db')
 
-router.get('/my',async (ctx)=>{
-    let sql = 'SELECT article.id as id,'+
-              'article.title as title,'+
-              'article.introduce as introduce,'+
-              "FROM_UNIXTIME(article.addTime,'%Y-%m-%d %H:%i:%s' ) as addTime,"+
-              'article.view_count as view_count ,'+
-              '.type.typeName as typeName '+
-              'FROM article LEFT JOIN type ON article.type_id = type.Id'
-    let qureyDate=await Dd(sql)
-    console.log(qureyDate)
-    ctx.body="123"
+//读取文章类别
+router.get('/getTypeInfo',async (ctx)=>{
+    try {
+        let sql = 'SELECT * FROM type'
+        let qureyData=await Dd(sql)
+        if(qureyData.length>0){
+            ctx.body={
+                code:200,
+                data:qureyData
+            }
+        }else{
+            ctx.body={
+                code:400,
+                data:'文章类别获取失败'
+            }
+        }
+    } catch (error) {
+        ctx.body={
+            code:500,
+            msg:error
+        }
+    }
+    
 })
 
 module.exports=router

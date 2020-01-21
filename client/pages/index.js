@@ -51,4 +51,9 @@ const Home = () => {
     </>
   )
 }
+// Home.getInitialProps=async ()=>{
+//   const promise=new Promise((resolve)=>{
+    
+//   })
+// }
 export default Home

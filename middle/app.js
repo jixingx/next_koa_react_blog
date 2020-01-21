@@ -18,7 +18,10 @@ app.use(static(path.join(__dirname,staticPath)));
 //koa-jwt 主要提供路有权限控制的功能，它会对需要限制的资源请求进行检查
 const jwtKoa = require('koa-jwt')
 app.use(jwtKoa({secret:"secret"}).unless({//第一个参数密匙，第二个参数那些URL不需要验证
-    path: [/^\/admin\/checkLogin/] //数组中的路径不需要通过jwt验证
+    path: [
+        /^\/admin\/checkLogin/,
+        /^\/default\/getTypeInfo/
+    ] //数组中的路径不需要通过jwt验证
 }))
 
 //引入koa-router，处理路由

@@ -6,6 +6,8 @@
 2. React hooks
 3. antd
 4. react-markdown(解析markdown语法)
+5. markdown-navbar(生成markdown导航)
+6. axios
 
 
 
@@ -25,6 +27,13 @@
 
 ### 接口
 1. 前端接口
+(2) /default/getTypeInfo 获取文章类别接口
+
+接受参数:无
+
+返回值：
+
+`{code:200,data:类别所有内容} OR  {code:400,data:文章类别获取失败}`
 2. 后端接口: 
 
 后端除了/admin/checkLogin接口其余都要token验证
