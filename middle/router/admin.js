@@ -83,7 +83,7 @@ router.post('/addArticle',async (ctx)=>{
             VALUES(null,${type_id},'${title}','${article_content}','${introduce}','${addTime}',${view_count})
             `
         let addData=await Dd(sql);
-        if(addData.affectedRows){
+        if(addData.affectedRows>0){
             ctx.body={
                 code:200,
                 isScuccess:true,

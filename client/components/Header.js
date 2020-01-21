@@ -1,12 +1,12 @@
 import React,{useEffect,useState} from 'react';
-import Router from 'next/router'
-import Link from 'next/link'
+// import Router from 'next/router'
+//import Link from 'next/link'
 import {Row,Col,Menu,Icon} from 'antd'
 import '../static/style/components/header.css';
 
 import axios from '../config/apiUrl'
 
-const Header=()=>{
+const Header=(props)=>{
     const [navArray,setNavArray]=useState([])
 
     useEffect(()=>{
@@ -23,8 +23,8 @@ const Header=()=>{
     },[])
     //点解获取对应key值
     const handleClick = (e)=>{
-        console.log(e.key)
-
+        //console.log(e.key)
+        props.NavClick(e.key)
     }
     return(
         <div className="header">

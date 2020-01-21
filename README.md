@@ -27,14 +27,41 @@
 
 ### 接口
 1. 前端接口
-(2) /default/getTypeInfo 获取文章类别接口
+
+(1) /default/getTypeInfo 获取文章类别接口
 
 接受参数:无
 
 返回值：
 
 `{code:200,data:类别所有内容} OR  {code:400,data:文章类别获取失败}`
-2. 后端接口: 
+
+(2) /default/getArticleList/:id 文章列表接口
+
+接收参数：
+
+
+|  参数  | 描述 |
+|  ---  | ---  |
+| Id  | 文章类别id |
+
+返回值:
+`{code:200,data:'文章列表内容'} OR  {code:400,msg:'文章列表获取失败'}`
+
+(3) /default/getArticleById/:id 详情列表接口
+
+接收参数：
+
+
+|  参数  | 描述 |
+|  ---  | ---  |
+| Id  | 文章类别id |
+
+返回值:
+`{code:200,data:'详情列表内容'} OR  {code:400,msg:'文章获取失败'}`
+
+
+1. 后端接口: 
 
 后端除了/admin/checkLogin接口其余都要token验证
 

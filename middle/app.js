@@ -20,7 +20,9 @@ const jwtKoa = require('koa-jwt')
 app.use(jwtKoa({secret:"secret"}).unless({//第一个参数密匙，第二个参数那些URL不需要验证
     path: [
         /^\/admin\/checkLogin/,
-        /^\/default\/getTypeInfo/
+        /^\/default\/getTypeInfo/,
+        /^\/default\/getArticleList/,
+        /^\/default\/getArticleById/
     ] //数组中的路径不需要通过jwt验证
 }))
 
